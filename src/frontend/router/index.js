@@ -1,4 +1,3 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store'; // 导入 Vuex Store
 import HomePage from '@/frontend/views/HomePage.vue';
@@ -12,29 +11,28 @@ import RegisterPage from '@/frontend/views/RegisterPage.vue';
 import text from "@/frontend/views/text.vue";
 
 const routes = [
-    { path: '/', name: 'Home', component: HomePage ,meta: { requiresAuth: true }},
-    { path: '/docs', name: 'Docs', component: DocsPage ,meta: { requiresAuth: true }},
-    { path: '/shop', name: 'Shop', component: ShopPage ,meta: { requiresAuth: true }},
-    { path: '/orders', name: 'OrderPage', component: OrderPage, meta: { requiresAuth: true } }, // 添加认证保护
-    { path: '/friends', name: 'Friends', component: FriendsPage, meta: { requiresAuth: true } }, // 添加认证保护
-    { path: '/profile', name: 'Profile', component: ProfilePage, meta: { requiresAuth: true } }, // 添加认证保护
-    { path: '/login', name: 'Login', component: LoginPage, meta: { hideNavbar: true } },
-    { path: '/register', name: 'Register', component: RegisterPage, meta: { hideNavbar: true } },
+    { path: '/', name: 'Home', component: HomePage, meta: { requiresAuth: true }},
+    { path: '/docs', name: 'Docs', component: DocsPage, meta: { requiresAuth: true }},
+    { path: '/shop', name: 'Shop', component: ShopPage, meta: { requiresAuth: true }},
+    { path: '/orders', name: 'OrderPage', component: OrderPage, meta: { requiresAuth: true }},
+    { path: '/friends', name: 'Friends', component: FriendsPage, meta: { requiresAuth: true }},
+    { path: '/profile', name: 'Profile', component: ProfilePage, meta: { requiresAuth: true }},
+    { path: '/login', name: 'Login', component: LoginPage, meta: { hideNavbar: true }},
+    { path: '/register', name: 'Register', component: RegisterPage, meta: { hideNavbar: true }},
     { path: '/text', name: 'text', component: text },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(), // 默认使用根路径
     routes,
 });
 
-// 路由守卫：在进入每个路由前检查登录状态
+// 路由守卫
 router.beforeEach((to, from, next) => {
-    // 检查路由是否需要认证
     if (to.meta.requiresAuth && !store.state.isLoggedIn) {
-        next({ name: 'Login' }); // 跳转到登录页面
+        next({ name: 'Login' });
     } else {
-        next(); // 继续导航
+        next();
     }
 });
 

@@ -9,5 +9,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/my_first_vueboke/', // 设置 GitHub Pages 的静态资源路径
+  base: '/', // 默认路径，不针对 GitHub Pages
 });
